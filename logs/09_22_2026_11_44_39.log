@@ -1,0 +1,17 @@
+[2026-09-22 11:45:12,611] 27 main -INFO -Home page accessed...
+[2026-09-22 11:45:21,780] 32 main -INFO -Predict form page accessed.....
+[2026-09-22 11:45:25,347] 27 main -INFO -Home page accessed...
+[2026-09-22 11:45:52,208] 27 main -INFO -Home page accessed...
+[2026-09-22 11:46:32,185] 27 nlp_pretrained.ner_tagger -INFO -NLTK pretrained NER extracted from 'i am gaurav and i have heavy feaver last 7  days and i am from jaipue' : {'GPE': [], 'PERSON': [], 'ORGANIZATION': []}
+[2026-09-22 11:46:32,258] 28 nlp_pretrained.sentiment_analyzer -INFO -VADER sentiment for 'i am gaurav and i have heavy feaver last 7  days and i am from jaipue' : {'neg': 0.0, 'neu': 1.0, 'pos': 0.0, 'compound': 0.0, 'urgency_hint': 'Low'}
+[2026-09-22 11:46:32,259] 15 nlp_pretrained.embedding -INFO -Loading pretrained Model for Embeddings: glove-wiki-gigaword-50
+[2026-09-22 11:46:33,520] 2049 gensim.models.keyedvectors -INFO -loading projection weights from C:\Users\HP/gensim-data\glove-wiki-gigaword-50\glove-wiki-gigaword-50.gz
+[2026-09-22 11:47:30,671] 447 gensim.utils -INFO -KeyedVectors lifecycle event {'msg': 'loaded (400000, 50) matrix of type float32 from C:\\Users\\HP/gensim-data\\glove-wiki-gigaword-50\\glove-wiki-gigaword-50.gz', 'binary': False, 'encoding': 'utf8', 'datetime': '2026-09-22T11:47:30.602293', 'gensim': '4.4.0', 'python': '3.11.14 (main, Feb  3 2026, 22:51:29) [MSC v.1944 64 bit (AMD64)]', 'platform': 'Windows-10-10.0.26200-SP0', 'event': 'load_word2vec_format'}
+[2026-09-22 11:47:30,672] 17 nlp_pretrained.embedding -INFO -Embeddings Loaded , Vocabulary size: 400000
+[2026-09-22 11:47:30,901] 28 nlp_pretrained.embedding -INFO -Most Similar to 'i' : '[("'d", 0.9566037058830261), ('me', 0.9546188116073608), ('maybe', 0.9306703805923462), ('know', 0.927360475063324), ("n't", 0.9259788393974304)]'
+[2026-09-22 11:48:49,147] 27 nlp_pretrained.ner_tagger -INFO -NLTK pretrained NER extracted from 'i am gaurav and i have heavy feaver last 7  days and i am from kota' : {'GPE': [], 'PERSON': [], 'ORGANIZATION': []}
+[2026-09-22 11:48:49,148] 28 nlp_pretrained.sentiment_analyzer -INFO -VADER sentiment for 'i am gaurav and i have heavy feaver last 7  days and i am from kota' : {'neg': 0.0, 'neu': 1.0, 'pos': 0.0, 'compound': 0.0, 'urgency_hint': 'Low'}
+[2026-09-22 11:48:49,185] 28 nlp_pretrained.embedding -INFO -Most Similar to 'i' : '[("'d", 0.9566037058830261), ('me', 0.9546188116073608), ('maybe', 0.9306703805923462), ('know', 0.927360475063324), ("n't", 0.9259788393974304)]'
+[2026-09-22 11:49:22,080] 27 nlp_pretrained.ner_tagger -INFO -NLTK pretrained NER extracted from 'i am gaurav and i have heavy feaver last 7  days and i am from jaipur' : {'GPE': [], 'PERSON': [], 'ORGANIZATION': []}
+[2026-09-22 11:49:22,081] 28 nlp_pretrained.sentiment_analyzer -INFO -VADER sentiment for 'i am gaurav and i have heavy feaver last 7  days and i am from jaipur' : {'neg': 0.0, 'neu': 1.0, 'pos': 0.0, 'compound': 0.0, 'urgency_hint': 'Low'}
+[2026-09-22 11:49:22,114] 28 nlp_pretrained.embedding -INFO -Most Similar to 'i' : '[("'d", 0.9566037058830261), ('me', 0.9546188116073608), ('maybe', 0.9306703805923462), ('know', 0.927360475063324), ("n't", 0.9259788393974304)]'
