@@ -7,3 +7,9 @@ Jinja2
 python-multipart 
 gensim
 NLTK
+groq
+python-dotenv
+itsdangerous
+passlib[bcrypt]
+mysql-connector-python
+python-multipart

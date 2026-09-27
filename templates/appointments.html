@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>My Appointments — Sanjeevani Clinic</title>
+  <link rel="stylesheet" href="/static/style.css" />
+  <style>
+    .back-link {
+      display: inline-block;
+      margin-bottom: 18px;
+      font-size: 0.88rem;
+      color: var(--teal-700);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .back-link:hover { color: var(--teal-900); }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a href="/" class="brand">
+      <span class="brand-mark">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <path d="M12 21s-7.5-4.6-9.8-9.4C.6 7.9 2.4 4.5 6 4.1c2-.2 3.6.9 6 3 2.4-2.1 4-3.2 6-3 3.6.4 5.4 3.8 3.8 7.5C19.5 16.4 12 21 12 21z" fill="#F6F3EC"/>
+        </svg>
+      </span>
+      Sanjeevani Clinic
+    </a>
+  </header>
+
+  <main class="form-shell">
+    <a href="/" class="back-link">← Back to home</a>
+
+    <div class="eyebrow-block">
+      <h1>My Appointments</h1>
+    </div>
+
+    {% if appointments %}
+      {% for a in appointments %}
+        <div class="card" style="margin-bottom:16px;">
+          <div class="result-title" style="color:var(--teal-900); font-size:1.1rem;">{{ a.doctor_name }} — {{ a.specialization }}</div>
+          <p style="color:var(--ink-soft); margin:6px 0;">{{ a.slot_date }} at {{ a.slot_time }}</p>
+          {% if a.reason %}<p style="color:var(--ink-soft); font-size:0.9rem;">Reason: {{ a.reason }}</p>{% endif %}
+          <p style="font-size:0.85rem; color:var(--leaf-500); font-weight:600;">{{ a.status }}</p>
+        </div>
+      {% endfor %}
+    {% else %}
+      <div class="card"><p>No appointments booked yet.</p></div>
+    {% endif %}
+
+    <a href="/book" class="btn-secondary" style="margin-top:10px; display:inline-block;">Book another appointment</a>
+  </main>
+</body>
+</html>

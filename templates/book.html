@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Book a Doctor — Sanjeevani Clinic</title>
+  <link rel="stylesheet" href="/static/style.css" />
+  <style>
+    .back-link {
+      display: inline-block;
+      margin-bottom: 18px;
+      font-size: 0.88rem;
+      color: var(--teal-700);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .back-link:hover { color: var(--teal-900); }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a href="/" class="brand">
+      <span class="brand-mark">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <path d="M12 21s-7.5-4.6-9.8-9.4C.6 7.9 2.4 4.5 6 4.1c2-.2 3.6.9 6 3 2.4-2.1 4-3.2 6-3 3.6.4 5.4 3.8 3.8 7.5C19.5 16.4 12 21 12 21z" fill="#F6F3EC"/>
+        </svg>
+      </span>
+      Sanjeevani Clinic
+    </a>
+  </header>
+
+  <main class="form-shell">
+    <a href="/" class="back-link">← Back to home</a>
+
+    <div class="eyebrow-block">
+      <h1>Book an appointment</h1>
+      <p class="sub">Choose a specialization, doctor and time slot</p>
+    </div>
+
+    <div class="card">
+      <div class="field full">
+        <label>Specialization</label>
+        <select id="specialization-select">
+          <option value="">Select specialization</option>
+          {% for s in specializations %}
+            <option value="{{ s }}" {% if preselected == s %}selected{% endif %}>{{ s }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="field full" id="doctor-field" style="display:none;">
+        <label>Doctor</label>
+        <select id="doctor-select"></select>
+      </div>
+
+      <div class="field full" id="slot-field" style="display:none;">
+        <label>Available slots</label>
+        <select id="slot-select"></select>
+      </div>
+
+      <div class="field full">
+        <label>Reason (optional)</label>
+        <input type="text" id="reason-input" placeholder="e.g. Fever for 5 days" />
+      </div>
+
+      <div class="submit-row">
+        <button id="confirm-btn" type="button" disabled>Confirm booking</button>
+      </div>
+    </div>
+  </main>
+
+<script>
+const specSelect = document.getElementById("specialization-select");
+const doctorField = document.getElementById("doctor-field");
+const doctorSelect = document.getElementById("doctor-select");
+const slotField = document.getElementById("slot-field");
+const slotSelect = document.getElementById("slot-select");
+const confirmBtn = document.getElementById("confirm-btn");
+
+specSelect.addEventListener("change", async () => {
+    doctorField.style.display = "none";
+    slotField.style.display = "none";
+    confirmBtn.disabled = true;
+    if (!specSelect.value) return;
+
+    const res = await fetch(`/book/doctors?specialization=${encodeURIComponent(specSelect.value)}`);
+    const data = await res.json();
+    doctorSelect.innerHTML = '<option value="">Select doctor</option>' +
+        data.doctors.map(d => `<option value="${d.id}">${d.name}</option>`).join("");
+    doctorField.style.display = "flex";
+});
+
+doctorSelect.addEventListener("change", async () => {
+    slotField.style.display = "none";
+    confirmBtn.disabled = true;
+    if (!doctorSelect.value) return;
+
+    const res = await fetch(`/book/slots?doctor_id=${doctorSelect.value}`);
+    const data = await res.json();
+    if (data.slots.length === 0) {
+        slotSelect.innerHTML = '<option value="">No slots available</option>';
+    } else {
+        slotSelect.innerHTML = '<option value="">Select slot</option>' +
+            data.slots.map(s => `<option value="${s.id}">${s.slot_date} — ${s.slot_time}</option>`).join("");
+    }
+    slotField.style.display = "flex";
+});
+
+slotSelect.addEventListener("change", () => {
+    confirmBtn.disabled = !slotSelect.value;
+});
+
+confirmBtn.addEventListener("click", () => {
+    const form = document.createElement("form");
+    form.method = "post";
+    form.action = "/book/confirm";
+    form.innerHTML = `
+        <input type="hidden" name="doctor_id" value="${doctorSelect.value}">
+        <input type="hidden" name="slot_id" value="${slotSelect.value}">
+        <input type="hidden" name="reason" value="${document.getElementById('reason-input').value}">
+    `;
+    document.body.appendChild(form);
+    form.submit();
+});
+
+{% if preselected %}
+specSelect.dispatchEvent(new Event("change"));
+{% endif %}
+</script>
+</body>
+</html>

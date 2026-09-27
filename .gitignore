@@ -8,3 +8,5 @@ wheels/
 
 # Virtual environments
 .venv
+GROQ_API_KEY=your_key_here
+.env 

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Panel — Sanjeevani Clinic</title>
+  <link rel="stylesheet" href="/static/style.css" />
+  <style>
+    .back-link { display:inline-block; margin-bottom:18px; font-size:0.88rem; color:var(--teal-700); text-decoration:none; font-weight:500; }
+    .back-link:hover { color: var(--teal-900); }
+    table { width:100%; border-collapse: collapse; margin-top:14px; }
+    th, td { text-align:left; padding:10px 12px; border-bottom:1px solid var(--line); font-size:0.88rem; }
+    th { color: var(--teal-900); font-weight:600; }
+    .del-link { color:#8C3D24; text-decoration:none; font-size:0.82rem; font-weight:600; }
+    .badge-open { color: var(--leaf-500); font-weight:600; }
+    .badge-booked { color: var(--clay-500); font-weight:600; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a href="/" class="brand">
+      <span class="brand-mark">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <path d="M12 21s-7.5-4.6-9.8-9.4C.6 7.9 2.4 4.5 6 4.1c2-.2 3.6.9 6 3 2.4-2.1 4-3.2 6-3 3.6.4 5.4 3.8 3.8 7.5C19.5 16.4 12 21 12 21z" fill="#F6F3EC"/>
+        </svg>
+      </span>
+      Sanjeevani Clinic
+    </a>
+  </header>
+
+  <main class="form-shell" style="max-width:820px;">
+    <a href="/" class="back-link">← Back to home</a>
+    <div class="eyebrow-block">
+      <h1>Admin Panel</h1>
+    </div>
+
+    <div class="card" style="margin-bottom:24px;">
+      <h3 style="font-family:'Fraunces',serif; color:var(--teal-900); margin-top:0;">Add doctor</h3>
+      <form method="post" action="/admin/add-doctor">
+        <div class="field-grid">
+          <div class="field">
+            <label>Name</label>
+            <input type="text" name="name" required placeholder="Dr. Full Name" />
+          </div>
+          <div class="field">
+            <label>Specialization</label>
+            <input type="text" name="specialization" required placeholder="e.g. Dentist" />
+          </div>
+        </div>
+        <div class="submit-row"><button type="submit">Add doctor</button></div>
+      </form>
+    </div>
+
+    <div class="card" style="margin-bottom:24px;">
+      <h3 style="font-family:'Fraunces',serif; color:var(--teal-900); margin-top:0;">Add slot</h3>
+      <form method="post" action="/admin/add-slot">
+        <div class="field-grid">
+          <div class="field">
+            <label>Doctor</label>
+            <select name="doctor_id" required>
+              {% for d in doctors %}
+                <option value="{{ d.id }}">{{ d.name }} ({{ d.specialization }})</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="field">
+            <label>Date</label>
+            <input type="date" name="slot_date" required />
+          </div>
+          <div class="field">
+            <label>Time</label>
+            <input type="time" name="slot_time" required />
+          </div>
+        </div>
+        <div class="submit-row"><button type="submit">Add slot</button></div>
+      </form>
+    </div>
+
+    <div class="card" style="margin-bottom:24px;">
+      <h3 style="font-family:'Fraunces',serif; color:var(--teal-900); margin-top:0;">All doctors</h3>
+      <table>
+        <tr><th>Name</th><th>Specialization</th><th></th></tr>
+        {% for d in doctors %}
+        <tr>
+          <td>{{ d.name }}</td>
+          <td>{{ d.specialization }}</td>
+          <td><a href="/admin/delete-doctor/{{ d.id }}" class="del-link" onclick="return confirm('Delete this doctor?')">Delete</a></td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+
+    <div class="card">
+      <h3 style="font-family:'Fraunces',serif; color:var(--teal-900); margin-top:0;">All slots</h3>
+      <table>
+        <tr><th>Doctor</th><th>Date</th><th>Time</th><th>Status</th></tr>
+        {% for s in slots %}
+        <tr>
+          <td>{{ s.doctor_name }}</td>
+          <td>{{ s.slot_date }}</td>
+          <td>{{ s.slot_time }}</td>
+          <td>{% if s.is_booked %}<span class="badge-booked">Booked</span>{% else %}<span class="badge-open">Open</span>{% endif %}</td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </main>
+</body>
+</html>

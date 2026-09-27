@@ -1,0 +1,5 @@
+[2026-09-25 12:20:09,330] 171 main -INFO -Chat page accessed...
+[2026-09-25 12:20:12,731] 1025 httpx -INFO -HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 404 Not Found"
+[2026-09-25 12:20:12,733] 34 src.chatbot.chat_engine -ERROR -Groq chat error: Error code: 404 - {'error': {'message': 'The model `llama-3.1-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}
+[2026-09-25 12:20:56,481] 1025 httpx -INFO -HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 404 Not Found"
+[2026-09-25 12:20:56,483] 34 src.chatbot.chat_engine -ERROR -Groq chat error: Error code: 404 - {'error': {'message': 'The model `llama-3.1-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}
