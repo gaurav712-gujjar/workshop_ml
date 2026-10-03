@@ -75,3 +75,4 @@ Imjury specific ---> LLM see which body part effect ---> Doctor suggest ---> boo
 
 
 User ALready login ---> User HI , LLM db--> summmmary pick --> 
+

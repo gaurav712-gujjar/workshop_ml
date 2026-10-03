@@ -1,0 +1,14 @@
+agenda ---> Remote MCP Server 
+
+DB -----> Products with their user_id
+
+1_tool ----> db me check kar produict avaliablr hai ya nahi
+
+2_tool ----> return hoga ya nahi / refund policy
+
+
+fastmcp ----> remotly connect karkr es ko on karege 
+
+main.py ----> fastapi ----> fastmcl server remote url use ---> as an client 
+
+fastapi url hit  ----> MCP server url hit 
