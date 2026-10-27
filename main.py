@@ -20,7 +20,7 @@ from fastapi import UploadFile, File
 from fastapi.responses import HTMLResponse, RedirectResponse
 from src.chatbot.chat_engine import get_chat_response, analyze_injury_photo
 from src.chatbot.chat_engine import get_chat_response
-from rag.rag_pipeline import RAGPipeline
+from rag.routes import router as rag_router
 from src.booking.booking_utils import (
     get_all_specializations, get_doctors_by_specialization,
     get_available_slots, book_slot, get_user_appointments,
@@ -39,8 +39,8 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 ##Set the template folder 
 templates = Jinja2Templates(directory="templates") 
 
-# Initialize RAG pipeline
-rag_pipeline = RAGPipeline()
+# RAG frontend (/rag page + /rag/api); pipeline loads lazily on first question
+app.include_router(rag_router)
 
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):
@@ -355,57 +355,10 @@ async def admin_delete_doctor(request: Request, doctor_id: int):
 
 # ---------------- RAG CLINIC ASSISTANT ----------------
 
-@app.get("/ask", response_class=HTMLResponse)
-async def clinic_assistant_form(request: Request):
-    logger.info("Clinic assistant (RAG) form page accessed")
-
-    return templates.TemplateResponse(
-        request,
-        "clinic_assistant.html",
-        {
-            "result": None,
-            "form_data": {"question": ""},
-            "error": None
-        }
-    )
-
-
-@app.post("/ask", response_class=HTMLResponse)
-async def clinic_assistant_answer(
-    request: Request,
-    question: str = Form(...)
-):
-    logger.info(f"Clinic assistant question received: '{question}'")
-
-    try:
-        question = question.strip()
-
-        if not question:
-            return templates.TemplateResponse(
-                request,
-                "clinic_assistant.html",
-                {
-                    "result": None,
-                    "form_data": {"question": ""},
-                    "error": "Please enter a question."
-                }
-            )
-
-        result = rag_pipeline.answer(question)
-
-        return templates.TemplateResponse(
-            request,
-            "clinic_assistant.html",
-            {
-                "result": result,
-                "form_data": {"question": question},
-                "error": None
-            }
-        )
-
-    except Exception as e:
-        logger.exception("Error in RAG clinic assistant")
-        raise CustomException(e, sys)
+@app.get("/ask")
+async def clinic_assistant_redirect():
+    # Old form-based page (its template never existed); RAG chat now lives at /rag
+    return RedirectResponse("/rag", status_code=307)
 
 
 # ---------------- RUN APPLICATION ----------------

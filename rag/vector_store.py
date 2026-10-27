@@ -29,7 +29,7 @@ class VectorStore:
             save_object(self.config['vectorizer_path'], vectorizer) 
             save_object(self.config['chunks_metadata_path'], chunks) 
             logger.info(
-                f"Vector store built: {len(chunks)} chunks, {dimension}--dim TF-IDF vectors",
+                f"Vector store built: {len(chunks)} chunks, {dimension}-dim TF-IDF vectors. "
                 f"FAISS IndexFlatIP saved at {self.config['faiss_index_path']}"
             )
             logger.info(f"-----------RAG STAGE: VECTOR STORE BUILD COMPLETED----------") 
