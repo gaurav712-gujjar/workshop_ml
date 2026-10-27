@@ -34,6 +34,4 @@ def evaluate_models(X_train, y_train , X_test , y_test, models:dict):
             logger.info(f"{model_name} -> Test Accuracy: {test_accuracy:.2f}")
         return report 
     except Exception as e : 
-        raise CustomException(e,sys)  
-
-##All done 
+        raise CustomException(e,sys) 

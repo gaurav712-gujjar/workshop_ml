@@ -1,0 +1,17 @@
+[2026-10-27 15:31:28,511] 11 __main__ -INFO -TRAINING PIPELINE STARTED....
+[2026-10-27 15:31:28,514] 23 src.components.data_ingestion -INFO -Data Ingestion started....
+[2026-10-27 15:31:28,604] 26 src.components.data_ingestion -INFO -Data read successfullywith shape: (100, 6)
+[2026-10-27 15:31:28,626] 31 src.components.data_ingestion -INFO -Performing train-test-split
+[2026-10-27 15:31:28,977] 37 src.components.data_ingestion -INFO -Data Ingestion completed successfully...
+[2026-10-27 15:31:28,978] 38 src.components.data_ingestion -INFO -Jo log online class le rhe h , unko bhi congration , unka bhi data ingestion ho chuka h , leptop per apna hath rkh kr apne aap ko pawan kare.
+[2026-10-27 15:31:28,980] 39 src.components.data_ingestion -INFO -----------
+[2026-10-27 15:31:28,981] 40 src.components.data_ingestion -INFO -Jinka net nhi chl rha online me , unka bhi data ingestion complete
+[2026-10-27 15:31:29,038] 61 src.components.data_transformation -INFO -Train and test data loaded for transformation
+[2026-10-27 15:31:29,045] 51 src.components.data_transformation -INFO -preprocessor object created successfully...
+[2026-10-27 15:31:29,046] 70 src.components.data_transformation -INFO -Applying preprocessing oon train and test data
+[2026-10-27 15:31:29,105] 15 src.utils -INFO -Object saved successfully at : artifacts\preprocessor.pkl
+[2026-10-27 15:31:29,106] 81 src.components.data_transformation -INFO -Preprcoessor bject saved as preprocessor.pkl
+[2026-10-27 15:31:29,107] 23 src.components.model_trainer -INFO -Spliting train and test input data
+[2026-10-27 15:31:29,280] 20 src.exception -ERROR -Error occured in python script: [D:\workshop_ml\src\utils.py]at line number: [32]with error message: [name 'r2_score' is not defined]
+[2026-10-27 15:31:29,280] 20 src.exception -ERROR -Error occured in python script: [D:\workshop_ml\src\components\model_trainer.py]at line number: [36]with error message: [Error occured in python script: [D:\workshop_ml\src\utils.py]at line number: [32]with error message: [name 'r2_score' is not defined]]
+[2026-10-27 15:31:29,281] 20 src.exception -ERROR -Error occured in python script: [D:\workshop_ml\src\pipeline\train_pipeline.py]at line number: [23]with error message: [Error occured in python script: [D:\workshop_ml\src\components\model_trainer.py]at line number: [36]with error message: [Error occured in python script: [D:\workshop_ml\src\utils.py]at line number: [32]with error message: [name 'r2_score' is not defined]]]
