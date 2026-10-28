@@ -21,13 +21,16 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 from src.chatbot.chat_engine import get_chat_response, analyze_injury_photo
 from src.chatbot.chat_engine import get_chat_response
 from rag.routes import router as rag_router
+<<<<<<< HEAD
+=======
+from rag.voice_routes import router as voice_router
+>>>>>>> 80733a1 (voice assisent  Completed)
 from src.booking.booking_utils import (
     get_all_specializations, get_doctors_by_specialization,
     get_available_slots, book_slot, get_user_appointments,
     get_patient_context_summary, add_doctor, get_all_doctors,
     add_slot, get_all_slots, delete_doctor
 )
-
 
 app= FastAPI(title="Covid Prediction Clinic") 
 app.add_middleware(SessionMiddleware, secret_key="change-this-to-a-random-secret-key")
@@ -39,8 +42,13 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 ##Set the template folder 
 templates = Jinja2Templates(directory="templates") 
 
+<<<<<<< HEAD
 # RAG frontend (/rag page + /rag/api); pipeline loads lazily on first question
 app.include_router(rag_router)
+=======
+app.include_router(rag_router)
+app.include_router(voice_router)
+>>>>>>> 80733a1 (voice assisent  Completed)
 
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):

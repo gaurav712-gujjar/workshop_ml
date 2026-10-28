@@ -1,8 +1,11 @@
+<<<<<<< HEAD
 """Public RAG frontend routes.
 
 GET  /rag      -> chat page where any visitor can ask clinic questions
 POST /rag/api  -> JSON endpoint used by the page: {"question": "..."}
 """
+=======
+>>>>>>> 80733a1 (voice assisent  Completed)
 from fastapi import APIRouter, Request
 from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.templating import Jinja2Templates
@@ -15,13 +18,20 @@ router = APIRouter()
 templates = Jinja2Templates(directory="templates")
 
 MAX_QUESTION_CHARS = 500
+<<<<<<< HEAD
 
+=======
+>>>>>>> 80733a1 (voice assisent  Completed)
 _pipeline = None
 
 
 def get_pipeline():
+<<<<<<< HEAD
     """Create the RAG pipeline on first use so the app still starts
     even if the index has not been built yet."""
+=======
+    # Lazy load so the app starts even if the index isn't built yet
+>>>>>>> 80733a1 (voice assisent  Completed)
     global _pipeline
     if _pipeline is None:
         from rag.rag_pipeline import RAGPipeline
@@ -31,7 +41,10 @@ def get_pipeline():
 
 @router.get("/rag", response_class=HTMLResponse)
 async def rag_page(request: Request):
+<<<<<<< HEAD
     logger.info("RAG chat page accessed")
+=======
+>>>>>>> 80733a1 (voice assisent  Completed)
     return templates.TemplateResponse(request, "rag_chat.html")
 
 
@@ -64,6 +77,7 @@ async def rag_api(request: Request):
         "answer": result["answer"],
         "sources": result["sources"],
         "chunks": [
+<<<<<<< HEAD
             {
                 "source": c["source"],
                 "score": c["score"],
@@ -72,3 +86,9 @@ async def rag_api(request: Request):
             for c in result["retrieved_chunks"]
         ],
     }
+=======
+            {"source": c["source"], "score": c["score"], "text": c["text"]}
+            for c in result["retrieved_chunks"]
+        ],
+    }
+>>>>>>> 80733a1 (voice assisent  Completed)

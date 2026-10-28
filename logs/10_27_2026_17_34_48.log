@@ -1,0 +1,44 @@
+[2026-10-27 17:35:07,984] 160 faiss.loader -INFO -Loading faiss with AVX2 support.
+[2026-10-27 17:35:07,986] 166 faiss.loader -INFO -Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2026-10-27 17:35:07,986] 186 faiss.loader -INFO -Loading faiss.
+[2026-10-27 17:35:08,045] 189 faiss.loader -INFO -Successfully loaded faiss.
+[2026-10-27 17:35:08,679] 22 rag.rag_config_loader -INFO -RAG config loaded from: rag/config/rag_config.yaml
+[2026-10-27 17:35:08,831] 24 rag.retriever -INFO -Retriever ready with 18 indexed chunks
+[2026-10-27 17:35:12,742] 309 watchfiles.main -INFO -1 change detected
+[2026-10-27 17:35:26,572] 309 watchfiles.main -INFO -2 changes detected
+[2026-10-27 17:35:26,953] 309 watchfiles.main -INFO -5 changes detected
+[2026-10-27 17:39:51,338] 309 watchfiles.main -INFO -1 change detected
+[2026-10-27 17:40:59,231] 309 watchfiles.main -INFO -1 change detected
+[2026-10-27 17:41:04,466] 309 watchfiles.main -INFO -2 changes detected
+[2026-10-27 17:41:08,332] 309 watchfiles.main -INFO -1 change detected
+[2026-10-27 17:41:11,435] 309 watchfiles.main -INFO -1 change detected
+[2026-10-27 17:41:19,292] 309 watchfiles.main -INFO -1 change detected
+[2026-10-27 17:41:23,067] 309 watchfiles.main -INFO -1 change detected
+[2026-10-27 17:41:26,727] 309 watchfiles.main -INFO -1 change detected
+[2026-10-27 17:41:27,942] 309 watchfiles.main -INFO -1 change detected
+[2026-10-27 17:41:39,350] 309 watchfiles.main -INFO -4 changes detected
+[2026-10-27 17:42:20,741] 309 watchfiles.main -INFO -1 change detected
+[2026-10-27 17:42:22,626] 309 watchfiles.main -INFO -1 change detected
+[2026-10-27 17:42:25,269] 309 watchfiles.main -INFO -1 change detected
+[2026-10-27 17:42:27,485] 309 watchfiles.main -INFO -2 changes detected
+[2026-10-27 17:42:32,741] 309 watchfiles.main -INFO -1 change detected
+[2026-10-27 17:42:35,368] 309 watchfiles.main -INFO -5 changes detected
+[2026-10-27 17:44:58,209] 309 watchfiles.main -INFO -1 change detected
+[2026-10-27 17:51:19,304] 309 watchfiles.main -INFO -1 change detected
+[2026-10-27 17:54:36,190] 309 watchfiles.main -INFO -1 change detected
+[2026-10-27 17:54:38,821] 309 watchfiles.main -INFO -2 changes detected
+[2026-10-27 17:54:40,801] 309 watchfiles.main -INFO -1 change detected
+[2026-10-27 17:54:43,641] 309 watchfiles.main -INFO -1 change detected
+[2026-10-27 17:54:45,839] 309 watchfiles.main -INFO -1 change detected
+[2026-10-27 17:54:48,583] 309 watchfiles.main -INFO -1 change detected
+[2026-10-27 17:55:00,026] 309 watchfiles.main -INFO -1 change detected
+[2026-10-27 17:55:17,335] 309 watchfiles.main -INFO -1 change detected
+[2026-10-27 17:55:20,140] 309 watchfiles.main -INFO -1 change detected
+[2026-10-27 17:55:20,854] 309 watchfiles.main -INFO -1 change detected
+[2026-10-27 17:55:27,526] 309 watchfiles.main -INFO -4 changes detected
+[2026-10-27 17:55:59,169] 309 watchfiles.main -INFO -1 change detected
+[2026-10-27 17:56:52,060] 309 watchfiles.main -INFO -1 change detected
+[2026-10-27 17:56:53,557] 309 watchfiles.main -INFO -1 change detected
+[2026-10-27 17:56:58,591] 309 watchfiles.main -INFO -1 change detected
+[2026-10-27 17:57:27,404] 309 watchfiles.main -INFO -1 change detected

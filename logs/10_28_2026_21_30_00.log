@@ -1,0 +1,12 @@
+[2026-10-28 21:30:01,098] 160 faiss.loader -INFO -Loading faiss with AVX2 support.
+[2026-10-28 21:30:01,101] 166 faiss.loader -INFO -Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2026-10-28 21:30:01,102] 186 faiss.loader -INFO -Loading faiss.
+[2026-10-28 21:30:02,345] 189 faiss.loader -INFO -Successfully loaded faiss.
+[2026-10-28 21:30:19,438] 22 rag.rag_config_loader -INFO -RAG config loaded from: rag/config/rag_config.yaml
+[2026-10-28 21:30:19,534] 16 rag.document_loader -INFO -Laded 4 documents from rag/knowledge_base
+[2026-10-28 21:30:19,536] 52 rag.document_loader -INFO -Built 18 chunks from 4 documents.
+[2026-10-28 21:30:19,537] 17 rag.vector_store -INFO -RAG STAGE: VECTOR STORE BUILD STARTED....
+[2026-10-28 21:30:19,632] 15 src.utils -INFO -Object saved successfully at : rag/artifacts/tfidf_vectorizer.pkl
+[2026-10-28 21:30:19,635] 15 src.utils -INFO -Object saved successfully at : rag/artifacts/chunks_metadata.pkl
+[2026-10-28 21:30:19,730] 35 rag.vector_store -INFO ------------RAG STAGE: VECTOR STORE BUILD COMPLETED----------

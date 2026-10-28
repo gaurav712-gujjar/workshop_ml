@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Voice Assistant — Sanjeevani Clinic</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        .voice-page { max-width: 680px; margin: 0 auto; padding: 40px 24px 60px; }
+        .back-link { display: inline-block; margin-bottom: 18px; font-size: 0.88rem; color: var(--teal-700); text-decoration: none; font-weight: 500; }
+        .back-link:hover { color: var(--teal-900); }
+        .voice-shell { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden; }
+        .voice-header { background: var(--teal-700); color: var(--paper); padding: 20px 24px; font-family: 'Fraunces', serif; font-size: 1.15rem; font-weight: 600; }
+        .voice-header .sub { font-family: 'Inter', sans-serif; font-weight: 400; font-size: 0.82rem; color: var(--sage-100); margin-top: 4px; }
+
+        #v-messages { height: 360px; overflow-y: auto; padding: 20px; background: var(--sage-100); display: flex; flex-direction: column; }
+        .msg { margin: 6px 0; padding: 12px 16px; border-radius: 16px; max-width: 85%; line-height: 1.55; font-size: 0.95rem; }
+        .msg.user { background: var(--teal-700); color: var(--paper); align-self: flex-end; border-bottom-right-radius: 4px; }
+        .msg.bot { background: var(--panel); color: var(--ink); align-self: flex-start; border: 1px solid var(--line); border-bottom-left-radius: 4px; }
+        .msg.error { background: var(--clay-100); border-color: var(--clay-500); }
+        .badge { display: inline-block; margin-top: 8px; padding: 2px 10px; border-radius: 999px; font-size: 0.72rem; font-weight: 600; background: var(--leaf-100); color: var(--teal-700); }
+        .badge.web { background: var(--clay-100); color: var(--clay-500); }
+        .src { margin-top: 6px; font-size: 0.8rem; }
+        .src a { color: var(--teal-700); }
+
+        .controls { padding: 18px 20px 20px; background: var(--panel); border-top: 1px solid var(--line); text-align: center; }
+        #mic-btn {
+            width: 84px; height: 84px; border-radius: 50%; border: none; cursor: pointer;
+            background: var(--teal-700); color: var(--paper); font-size: 2rem; transition: background .15s, transform .15s;
+        }
+        #mic-btn:hover { background: var(--teal-900); }
+        #mic-btn.listening { background: var(--clay-500); animation: pulse 1.2s infinite; }
+        #mic-btn:disabled { opacity: .5; cursor: default; }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(198,96,63,.5); } 70% { box-shadow: 0 0 0 18px rgba(198,96,63,0); } 100% { box-shadow: 0 0 0 0 rgba(198,96,63,0); } }
+        #status { margin-top: 10px; font-size: 0.85rem; color: var(--ink-soft); min-height: 1.2em; }
+
+        .options { margin-top: 14px; display: flex; justify-content: center; align-items: center; gap: 16px; flex-wrap: wrap; font-size: 0.85rem; color: var(--ink-soft); }
+        .options select, .options button { font-family: inherit; font-size: 0.85rem; padding: 5px 10px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--panel); color: var(--ink); cursor: pointer; }
+
+        #text-row { display: flex; margin-top: 16px; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; }
+        #text-input { flex: 1; padding: 11px 16px; border: none; outline: none; font-family: inherit; font-size: 0.9rem; background: transparent; color: var(--ink); }
+        #text-row button { border: none; background: var(--teal-700); color: var(--paper); padding: 0 20px; cursor: pointer; font-weight: 600; }
+    </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="/" class="brand">
+      <span class="brand-mark">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <path d="M12 21s-7.5-4.6-9.8-9.4C.6 7.9 2.4 4.5 6 4.1c2-.2 3.6.9 6 3 2.4-2.1 4-3.2 6-3 3.6.4 5.4 3.8 3.8 7.5C19.5 16.4 12 21 12 21z" fill="#F6F3EC"/>
+        </svg>
+      </span>
+      Sanjeevani Clinic
+    </a>
+  </header>
+
+  <main class="voice-page">
+    <a href="/" class="back-link">← Back to home</a>
+
+    <div class="voice-shell">
+      <div class="voice-header">
+        Voice Assistant
+        <div class="sub">Tap the mic and ask — general information only, not a diagnosis</div>
+      </div>
+
+      <div id="v-messages" aria-live="polite"></div>
+
+      <div class="controls">
+        <button id="mic-btn" type="button" aria-label="Tap to speak">🎤</button>
+        <div id="status">Tap the mic and speak</div>
+
+        <div class="options">
+          <label>Language
+            <select id="lang">
+              <option value="en-IN">English (India)</option>
+              <option value="hi-IN">हिन्दी / Hinglish</option>
+            </select>
+          </label>
+          <label><input type="checkbox" id="speak-toggle" checked /> Read answers aloud</label>
+          <button type="button" id="stop-btn">⏹ Stop speaking</button>
+        </div>
+
+        <form id="text-row" autocomplete="off">
+          <input id="text-input" type="text" maxlength="500" placeholder="Or type your question..." />
+          <button type="submit">Ask</button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+<script>
+const messagesEl = document.getElementById("v-messages");
+const micBtn = document.getElementById("mic-btn");
+const statusEl = document.getElementById("status");
+const langEl = document.getElementById("lang");
+const speakToggle = document.getElementById("speak-toggle");
+const textForm = document.getElementById("text-row");
+const textInput = document.getElementById("text-input");
+
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+let recognition = null;
+let listening = false;
+let busy = false;
+
+function scrollDown() { messagesEl.scrollTop = messagesEl.scrollHeight; }
+
+function addUser(text) {
+    const div = document.createElement("div");
+    div.className = "msg user";
+    div.textContent = text;
+    messagesEl.appendChild(div);
+    scrollDown();
+}
+
+function addBot(text, { mode = null, sources = [], error = false } = {}) {
+    const div = document.createElement("div");
+    div.className = "msg bot" + (error ? " error" : "");
+    const p = document.createElement("div");
+    p.textContent = text;
+    div.appendChild(p);
+
+    if (mode === "knowledge_base" || mode === "web") {
+        const badge = document.createElement("span");
+        badge.className = "badge" + (mode === "web" ? " web" : "");
+        badge.textContent = mode === "web" ? "🌐 From trusted health websites" : "📄 From clinic guidance";
+        div.appendChild(badge);
+    }
+
+    sources.forEach(s => {
+        const row = document.createElement("div");
+        row.className = "src";
+        if (s.url && /^https?:\/\//.test(s.url)) {
+            const a = document.createElement("a");
+            a.href = s.url; a.target = "_blank"; a.rel = "noopener noreferrer";
+            a.textContent = s.title;
+            row.appendChild(a);
+        } else {
+            row.textContent = s.title.replace(/\.md$/, "").replace(/_/g, " ");
+        }
+        div.appendChild(row);
+    });
+
+    messagesEl.appendChild(div);
+    scrollDown();
+    return div;
+}
+
+function speak(text) {
+    if (!speakToggle.checked || !("speechSynthesis" in window)) return;
+    window.speechSynthesis.cancel();
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = langEl.value;
+    const voice = window.speechSynthesis.getVoices().find(v => v.lang === langEl.value)
+        || window.speechSynthesis.getVoices().find(v => v.lang.startsWith(langEl.value.slice(0, 2)));
+    if (voice) utter.voice = voice;
+    window.speechSynthesis.speak(utter);
+}
+
+async function ask(question) {
+    question = question.trim();
+    if (!question || busy) return;
+    busy = true;
+    addUser(question);
+    statusEl.textContent = "Thinking…";
+    micBtn.disabled = true;
+
+    const loading = addBot("Looking that up…");
+    try {
+        const res = await fetch("/voice/api", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ question })
+        });
+        const data = await res.json();
+        loading.remove();
+        if (!res.ok) {
+            addBot(data.error || "Something went wrong.", { error: true });
+            speak(data.error || "Something went wrong.");
+        } else {
+            addBot(data.answer, { mode: data.mode, sources: data.sources });
+            speak(data.answer);
+        }
+    } catch (e) {
+        loading.remove();
+        addBot("Network error. Please try again.", { error: true });
+    } finally {
+        busy = false;
+        micBtn.disabled = !SpeechRecognition;
+        statusEl.textContent = "Tap the mic and speak";
+    }
+}
+
+if (!SpeechRecognition) {
+    micBtn.disabled = true;
+    statusEl.textContent = "Voice input isn't supported in this browser. Use Chrome or Edge, or type below.";
+} else {
+    recognition = new SpeechRecognition();
+    recognition.interimResults = true;
+    recognition.maxAlternatives = 1;
+    recognition.continuous = false;
+
+    let finalText = "";
+
+    recognition.onstart = () => {
+        listening = true;
+        finalText = "";
+        micBtn.classList.add("listening");
+        statusEl.textContent = "Listening… speak now";
+    };
+    recognition.onresult = (e) => {
+        let interim = "";
+        for (let i = e.resultIndex; i < e.results.length; i++) {
+            const t = e.results[i][0].transcript;
+            if (e.results[i].isFinal) finalText += t; else interim += t;
+        }
+        statusEl.textContent = "“" + (finalText + interim) + "”";
+    };
+    recognition.onerror = (e) => {
+        const msgs = {
+            "not-allowed": "Microphone permission was blocked. Allow it in the browser address bar.",
+            "service-not-allowed": "Microphone permission was blocked. Allow it in the browser address bar.",
+            "no-speech": "I didn't hear anything. Tap the mic and try again.",
+            "audio-capture": "No microphone found.",
+            "network": "Speech service unavailable. Check your internet connection."
+        };
+        statusEl.textContent = msgs[e.error] || ("Voice error: " + e.error);
+    };
+    recognition.onend = () => {
+        listening = false;
+        micBtn.classList.remove("listening");
+        if (finalText.trim()) ask(finalText);
+    };
+
+    micBtn.addEventListener("click", () => {
+        if (busy) return;
+        window.speechSynthesis && window.speechSynthesis.cancel();
+        if (listening) { recognition.stop(); return; }
+        recognition.lang = langEl.value;
+        try { recognition.start(); } catch (e) { /* already started */ }
+    });
+}
+
+document.getElementById("stop-btn").addEventListener("click", () => {
+    window.speechSynthesis && window.speechSynthesis.cancel();
+});
+textForm.addEventListener("submit", e => {
+    e.preventDefault();
+    const q = textInput.value;
+    textInput.value = "";
+    ask(q);
+});
+
+// Voices load asynchronously in some browsers
+if ("speechSynthesis" in window) window.speechSynthesis.onvoiceschanged = () => {};
+
+addBot("Hi! Tap the mic and ask about isolation, home care, testing, recovery or when to see a doctor. For other health topics I'll search trusted sites like WHO, CDC and NHS.");
+</script>
+</body>
+</html>
